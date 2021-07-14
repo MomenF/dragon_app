@@ -1,3 +1,4 @@
+import 'package:dragon_app/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,11 @@ class _LoginPageState extends State<LoginPage> {
   bool dontShowPassword = true;
   var FormKey = GlobalKey<FormState>();
   var iconChanged = Icon(Icons.visibility);
+  var authData = Auth();
+
+
+
+
 
 
   Widget build(BuildContext context) {
@@ -80,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller:PasswordController ,
                   obscureText: dontShowPassword,
                   validator: (value){
-                    if(value != "0" && value.isNotEmpty){
+                    if(value != authData. && value.isNotEmpty){
                       return "This Password is incorrect , please try with another";
                     }else if (value.isEmpty){
                       return "This Field Must not be empty , please Complete this field";
@@ -105,6 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold),),
                   onPressed: () {
                     if(FormKey.currentState.validate()){
+                      authData.SignIn(email: emailController.text, Password: PasswordController.text)
                       Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false);
                     }
                   },
