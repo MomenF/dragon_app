@@ -30,7 +30,7 @@ class _FirstState extends State<First> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 image: AssetImage("assets/images/tap1.jpg"),
               )
             ),
@@ -53,18 +53,25 @@ class _FirstState extends State<First> {
                         shrinkWrap: true,
                           separatorBuilder: (context,index){
                             return SizedBox(
-                              height: 200,
+                              height: 5,
                             ) ;
                           },
                           itemCount: model.length,
                          itemBuilder: (context,index){
-                            return ListTile(
-                              title: Text(model[index].email , maxLines: 1,overflow: TextOverflow.ellipsis,) ,
-                               subtitle:Text(model[index].body,maxLines: 1,overflow: TextOverflow.ellipsis,) ,
-                              leading: CircleAvatar(
-                                child: Text("${model[index].id}"),
+                            return Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 15),
+                              decoration: BoxDecoration(
+                                color: Colors.greenAccent,
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                              tileColor: Colors.grey,
+                              child: ListTile(
+                                title: Text(model[index].email , maxLines: 3,overflow: TextOverflow.ellipsis,) ,
+                                 subtitle:Text(model[index].body,maxLines: 3,overflow: TextOverflow.ellipsis,) ,
+                                leading: CircleAvatar(
+                                  child: Text("${model[index].id}"),
+                                ),
+                                tileColor: Colors.grey,
+                              ),
                             );
                         },
 

@@ -1,5 +1,6 @@
 import 'package:dragon_app/Package/Posts.dart';
 import 'package:dragon_app/Package/model.dart';
+import 'package:dragon_app/Package/model2.dart';
 import 'package:dragon_app/Package/post.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
@@ -29,4 +30,25 @@ Future<List<Model>> fetchData() async {
   return viewModel;
 
 }
+
+Future<List<Model2>>  fetch2ndTap()async {
+  List<Model2> modelList = [];
+  var Url =  Uri.parse("https://jsonplaceholder.typicode.com/todos");
+  var res = await http.get(Url);
+  if(res.statusCode == 200){
+    var data = convert.jsonDecode(res.body);
+    for(var item in data){
+      modelList.add(Model2.fromJson(item));
+    }
+    return modelList;
+  }else{
+    print("error code is ${res.statusCode}");
+  }
+  print(modelList);
+  return modelList;
+
+
+  
+}
+
 }
