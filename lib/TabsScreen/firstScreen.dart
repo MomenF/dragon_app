@@ -24,72 +24,73 @@ class _FirstState extends State<First> {
   @override
   Widget build(BuildContext context) {
 
-    return  SingleChildScrollView(
+    return  Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage("assets/images/tap1.jpg"),
+        )
+      ),
       child: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: AssetImage("assets/images/tap1.jpg"),
-              )
-            ),
-            child: SingleChildScrollView(
-              child: FutureBuilder<List<Model>> (
-                future: data.fetchData(),
-                  builder: (context,snap){
-                    print("suceess 2 ${snap.data} ");
+          SizedBox(
+            height: 25,
+          ),
+          SingleChildScrollView(
+            child: FutureBuilder<List<Model>> (
+              future: data.fetchData(),
+                builder: (context,snap){
+                  print("suceess 2 ${snap.data} ");
 
-                    if(snap.connectionState != ConnectionState.done){
-                    return CircularProgressIndicator();
-                  }
-                  else if( snap.hasData){
-                      print("sucees 4");
-                      List<Model> model = snap.data ;
-                      print("sucees 3");
-                    return Expanded(
-                      child: ListView.separated(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                          separatorBuilder: (context,index){
-                            return SizedBox(
-                              height: 5,
-                            ) ;
-                          },
-                          itemCount: model.length,
-                         itemBuilder: (context,index){
-                            return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 15),
-                              decoration: BoxDecoration(
-                                color: Colors.greenAccent,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: ListTile(
-                                title: Text(model[index].email , maxLines: 3,overflow: TextOverflow.ellipsis,) ,
-                                 subtitle:Text(model[index].body,maxLines: 3,overflow: TextOverflow.ellipsis,) ,
-                                leading: CircleAvatar(
-                                  child: Text("${model[index].id}"),
-                                ),
-                                tileColor: Colors.grey,
-                              ),
-                            );
+                  if(snap.connectionState != ConnectionState.done){
+                  return CircularProgressIndicator();
+                }
+                else if( snap.hasData){
+                    print("sucees 4");
+                    List<Model> model = snap.data ;
+                    print("sucees 3");
+                  return Expanded(
+                    child: ListView.separated(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                        separatorBuilder: (context,index){
+                          return SizedBox(
+                            height: 20,
+                          ) ;
                         },
+                        itemCount: model.length,
+                       itemBuilder: (context,index){
+                          return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: BoxDecoration(
+                              color: Colors.greenAccent,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: ListTile(
+                              title: Text(model[index].email , maxLines: 3,overflow: TextOverflow.ellipsis,) ,
+                               subtitle:Text(model[index].body,maxLines: 3,overflow: TextOverflow.ellipsis,) ,
+                              leading: CircleAvatar(
+                                child: Text("${model[index].id}"),
+                              ),
+                              tileColor: Colors.grey,
+                            ),
+                          );
+                      },
 
-                      ),
-                    );
+                    ),
+                  );
 
-                  }else{
-                    return Center(
-                      child: Text("Error While Sending the data",style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                }else{
+                  return Center(
+                    child: Text("Error While Sending the data",style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
 
-                      ),),
-                    );
-                  }
-                  }),
-            ),
+                    ),),
+                  );
+                }
+                }),
           ),
         ],
       ),

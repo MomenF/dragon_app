@@ -1,3 +1,4 @@
+import 'package:dragon_app/Package/model.dart';
 import 'package:dragon_app/Package/model2.dart';
 import 'package:dragon_app/service/restful%20api.dart';
 import 'package:flutter/material.dart';
@@ -16,55 +17,72 @@ class _SecondState extends State<Second> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return  Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage("assets/images/tap2.jpg"),
+          )
+      ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Stack(
-            children: [
-              Image.asset(
-                'assets/images/tap2.jpg',
-                fit: BoxFit.cover,
-                height: 700,
-              ),
-              FutureBuilder <List<Model2>>(
-                  future: data.fetch2ndTap(),
-                  builder: (context, snap) {
-                    print("sucees Acess ");
-                    if (snap.connectionState != ConnectionState.done) {
-                      return Center(child: CircularProgressIndicator());
-                    } else if (snap.hasData) {
-                      print("sucees Acess 2 has data");
-                      List<Model2> model2 = snap.data;
-                      return ListView.separated(
-                        separatorBuilder: (context,index){
-                            return SizedBox(
-                              height: 5,
-                                    );
-                                       },
-                        itemCount: 4,
-                        itemBuilder:  (context,index){
-                            print(model2[1].title);
-                            return Text(model2[index].title);
+          SizedBox(
+            height: 25,
+          ),
+          Expanded(
+            child: FutureBuilder<List<Model2>> (
+                future: data.fetch2ndTap(),
+                builder: (context,snap){
+                  print("suceess 2 ${snap.data} ");
 
+                  if(snap.connectionState != ConnectionState.done){
+                    return CircularProgressIndicator();
+                  }
+                  else if( snap.hasData){
+                    print("sucees 4");
+                    List<Model2> model = snap.data ;
+                    print("sucees 3");
+                    return ListView.separated(
+
+                      separatorBuilder: (context,index){
+                        return SizedBox(
+                          height: 20,
+                        ) ;
+                      },
+                      itemCount: model.length,
+                      itemBuilder: (context,index){
+                        return Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.greenAccent,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: ListTile(
+                            title: Text(model[index].title , maxLines: 3,overflow: TextOverflow.ellipsis,),
+                            subtitle: Text(model[index].completed?"male":"Female"),
+                            leading: CircleAvatar(
+                              child: Text("${model[index].id}"),
+                            ),
+                            tileColor: Colors.grey,
+                          ),
+                        );
                       },
 
-                      );
-                    } else {
-                      return Text(
-                        "Error Accured while sending data",
-                        style: TextStyle(
-                          fontSize: 25 ,
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),);
-                    }
+                    );
+
+                  }else{
+                    return Center(
+                      child: Text("Error While Sending the data",style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+
+                      ),),
+                    );
                   }
-              )
-
-
-            ],
-
+                }),
           ),
         ],
       ),
