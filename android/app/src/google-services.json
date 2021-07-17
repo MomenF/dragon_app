@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "182810685855",
+    "project_id": "dragonapp-a86f7",
+    "storage_bucket": "dragonapp-a86f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182810685855:android:bc56dcc75b09659787cdaa",
+        "android_client_info": {
+          "package_name": "com.example.dragon_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182810685855-dvf9q2g8rp7kvo4rrs7rodv2vhfg6st5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR0gOvyXF4i8sxqedhU_QGf-b-SFcBTyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182810685855-dvf9q2g8rp7kvo4rrs7rodv2vhfg6st5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
