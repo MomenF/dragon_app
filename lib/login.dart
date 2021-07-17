@@ -1,4 +1,5 @@
 import 'package:dragon_app/service/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +18,26 @@ class _LoginPageState extends State<LoginPage> {
   bool dontShowPassword = true;
   var FormKey = GlobalKey<FormState>();
   var iconChanged = Icon(Icons.visibility);
-  var authData = Auth();
+  final _auth = FirebaseAuth.instance;
 
-
-
-
+  Future<dynamic> SignIn(String email , String password) async {
+    try {
+      final authResult = await _auth.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+      );
+      print("Sucees");
+      print("$email");
+      print("$password");
+      return authResult;
+    }on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
 
 
   Widget build(BuildContext context) {
@@ -49,13 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                          controller:emailController ,
-                          validator: (value){
-                           if(value != "a" && value.isNotEmpty){
-                             return "This Email is incorrect , please try with another";
-                           }else if (value.isEmpty){
-                             return "This Field Must not be empty , please Complete this field";
-                           }else{ return null ;}
-                          },
+
                 ),
               ),
               SizedBox(
@@ -85,13 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                   controller:PasswordController ,
                   obscureText: dontShowPassword,
-                  validator: (value){
-                    if(value != authData. && value.isNotEmpty){
-                      return "This Password is incorrect , please try with another";
-                    }else if (value.isEmpty){
-                      return "This Field Must not be empty , please Complete this field";
-                    }else{ return null ;}
-                  },
+
                 ),
               ),
               /** login Bar**/
@@ -110,13 +114,13 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold),),
                   onPressed: () {
-                    if(FormKey.currentState.validate()){
-                      authData.SignIn(email: emailController.text, Password: PasswordController.text)
-                      Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false);
-                    }
-                  },
+
+                    SignIn(emailController.text,PasswordController.text);
+                    Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false);
+                    },
+                  ) ,
                 ),
-              ),
+
               /** login with Facebook **/
               SizedBox(height: 15,),
               Container(

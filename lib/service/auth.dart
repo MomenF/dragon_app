@@ -14,6 +14,8 @@ class Auth {
 // static String signUPPassword ;
 // static String signINPassword ;
 
+
+
   Future<dynamic> SignIn({String email, String Password}) async {
     try {
       final authResult = await _auth.signInWithEmailAndPassword(

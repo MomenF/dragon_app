@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'Models/shipsApi.dart';
-import 'dart:convert';
-
+import 'dart:convert' as convert;
+import 'Package/model.dart';
 import 'Package/post.dart';
 
 class Home extends StatefulWidget {
@@ -35,11 +35,10 @@ class _HomeState extends State<Home> {
 
 
   @override
-  void initState() {
-    // getShipsData();
+      void initState() {
     data.fetchData();
     super.initState();
-  }
+      }
 
 
   Widget build(BuildContext context) {
@@ -177,6 +176,25 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /**
