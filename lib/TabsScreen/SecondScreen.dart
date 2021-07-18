@@ -49,7 +49,7 @@ class _SecondState extends State<Second> {
                           height: 20,
                         ) ;
                       },
-                      itemCount: model.length,
+                      itemCount: 20,
                       itemBuilder: (context,index){
                         return Container(
                           margin: const EdgeInsets.symmetric(

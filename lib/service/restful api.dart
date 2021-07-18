@@ -1,6 +1,7 @@
 import 'package:dragon_app/Package/Posts.dart';
 import 'package:dragon_app/Package/model.dart';
 import 'package:dragon_app/Package/model2.dart';
+import 'package:dragon_app/Package/model3.dart';
 import 'package:dragon_app/Package/post.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
@@ -49,6 +50,22 @@ Future<List<Model2>>  fetch2ndTap()async {
 
 
   
+}
+
+Future <List<Model3>>fetch3rdTap() async {
+  List<Model3> ModelList= [];
+  var url = Uri.parse("https://jsonplaceholder.typicode.com/photos");
+  var res = await http.get(url);
+  if(res.statusCode == 200){
+    var data = convert.jsonDecode(res.body);
+    for(var item in data){
+    ModelList.add(Model3.fromJson(item));
+    }
+    return ModelList ;
+  }else{
+    print("${res.statusCode}");
+  }
+
 }
 
 }
