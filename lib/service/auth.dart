@@ -16,11 +16,27 @@ class Auth {
 
 
 
-  Future<dynamic> SignIn({String email, String Password}) async {
+  Future<dynamic> SignIn({String email, String password}) async {
     try {
       final authResult = await _auth.signInWithEmailAndPassword(
           email: email,
-          password: Password
+          password: password
+      );
+      return authResult;
+    }on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
+
+  Future<dynamic> SignUp({String email, String password}) async {
+    try {
+      final authResult = await _auth.createUserWithEmailAndPassword(
+          email: email,
+          password: password
       );
       return authResult;
     }on FirebaseAuthException catch (e) {
