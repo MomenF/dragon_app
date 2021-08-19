@@ -2,7 +2,8 @@ import 'package:dragon_app/service/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'Models/Component.dart';
 
 class LoginPage extends StatefulWidget{
@@ -43,6 +44,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+
+
         child: Form(
           key:FormKey ,
           child: Column(
@@ -123,25 +126,11 @@ class _LoginPageState extends State<LoginPage> {
 
               /** login with Facebook **/
               SizedBox(height: 15,),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 25),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  boxShadow:[BoxShadow(
-                    color: Colors.black,offset:Offset.zero
-                  )],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                ),
-                child: ListTile(
-                  onTap: (){},
-                  leading: Icon(Icons.facebook_outlined,color: Colors.blue,size: 40,),
-                  title: Text("Login With Facebook",style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w800,
-                  ),),
-                )
+              SignInButton(
+                Buttons.Facebook,
+                onPressed: (){
+                  Navigator.pushNamedAndRemoveUntil(context, "/Home", (route) => false);
+                },
               ),
               /** Register **/
               Row(
